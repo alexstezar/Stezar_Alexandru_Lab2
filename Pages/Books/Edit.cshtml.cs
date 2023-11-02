@@ -31,6 +31,7 @@ namespace Stezar_Alexandru_Lab2.Pages.Books
             }
 
             Book = await _context.Book
+                .Include(b => b.Author)
                 .Include(b => b.Publisher)
                 .Include(b => b.BookCategories).ThenInclude(b => b.Category)
                 .AsNoTracking()
@@ -44,6 +45,7 @@ namespace Stezar_Alexandru_Lab2.Pages.Books
             PopulateAssignedCategoryData(_context, Book);
 
             Book = book;
+            ViewData["AuthorID"] = new SelectList(_context.Set<Author>(), "ID", "FullName");
             ViewData["PublisherID"] = new SelectList(_context.Set<Publisher>(), "ID", "PublisherName");
             return Page();
         }
@@ -60,6 +62,7 @@ namespace Stezar_Alexandru_Lab2.Pages.Books
                 }
                 //se va include Author conform cu sarcina de la lab 2
                 var bookToUpdate = await _context.Book
+                .Include(i => i.Author)
                 .Include(i => i.Publisher)
                 .Include(i => i.BookCategories)
                 .ThenInclude(i => i.Category)

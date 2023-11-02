@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Stezar_Alexandru_Lab2.Data;
 
@@ -11,9 +12,10 @@ using Stezar_Alexandru_Lab2.Data;
 namespace Stezar_Alexandru_Lab2.Migrations
 {
     [DbContext(typeof(Stezar_Alexandru_Lab2Context))]
-    partial class Stezar_Alexandru_Lab2ContextModelSnapshot : ModelSnapshot
+    [Migration("20231102152602_Authors")]
+    partial class Authors
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,8 +53,9 @@ namespace Stezar_Alexandru_Lab2.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
-                    b.Property<int?>("AuthorID")
-                        .HasColumnType("int");
+                    b.Property<string>("Author")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(6,2)");
@@ -68,8 +71,6 @@ namespace Stezar_Alexandru_Lab2.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("AuthorID");
 
                     b.HasIndex("PublisherID");
 
@@ -135,15 +136,9 @@ namespace Stezar_Alexandru_Lab2.Migrations
 
             modelBuilder.Entity("Stezar_Alexandru_Lab2.Models.Book", b =>
                 {
-                    b.HasOne("Stezar_Alexandru_Lab2.Models.Author", "Author")
-                        .WithMany("Books")
-                        .HasForeignKey("AuthorID");
-
                     b.HasOne("Stezar_Alexandru_Lab2.Models.Publisher", "Publisher")
                         .WithMany("Books")
                         .HasForeignKey("PublisherID");
-
-                    b.Navigation("Author");
 
                     b.Navigation("Publisher");
                 });
@@ -165,11 +160,6 @@ namespace Stezar_Alexandru_Lab2.Migrations
                     b.Navigation("Book");
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("Stezar_Alexandru_Lab2.Models.Author", b =>
-                {
-                    b.Navigation("Books");
                 });
 
             modelBuilder.Entity("Stezar_Alexandru_Lab2.Models.Book", b =>
