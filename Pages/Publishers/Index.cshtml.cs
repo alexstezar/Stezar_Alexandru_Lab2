@@ -25,6 +25,7 @@ namespace Stezar_Alexandru_Lab2.Pages.Publishers
         public PublisherIndexData PublisherData { get; set; }
         public int PublisherID { get; set; }
         public int BookID { get; set; }
+
         public async Task OnGetAsync(int? id, int? bookID)
         {
             PublisherData = new PublisherIndexData();
