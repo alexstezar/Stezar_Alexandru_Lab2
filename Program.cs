@@ -16,6 +16,8 @@ builder.Services.AddRazorPages(options =>
     options.Conventions.AllowAnonymousToPage("/Books/Index");
     options.Conventions.AllowAnonymousToPage("/Books/Details");
     options.Conventions.AuthorizeFolder("/Members", "AdminPolicy");
+    options.Conventions.AuthorizeFolder("/Publishers", "AdminPolicy");
+    options.Conventions.AuthorizeFolder("/Categories", "AdminPolicy");
 });
 builder.Services.AddDbContext<Stezar_Alexandru_Lab2Context>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Stezar_Alexandru_Lab2Context") ?? throw new InvalidOperationException("Connection string 'Stezar_Alexandru_Lab2Context' not found.")));
